@@ -1,0 +1,17 @@
+# series-de-tiempo
+temporal <- tempfile()
+download.file ("http://www.beta.inegi.org.mx/contenidos/proyectos/enchogares/regulares/enoe/microdatos/enoe_15ymas/2016/2016trim1_dbf.zip",temporal)
+ files = unzip(temporal, list=TRUE)$Name
+unzip(temporal,files=files[grepl("dbf",files)])
+install.packages("foreign")
+require(foreign)
+SDEMT116<- data.frame(read.dbf("sdemt116.dbf"))
+###################################
+
+nombres<-c("carlos","zyan","pez")
+edad<-c(1,2,3)
+base<-data.frame(nombres,edad)
+base
+table(SDEMT116$SEX)
+wtd.table(SDEMT116$SEX,weights=SDEMT116$FAC)
+require(questionr)
