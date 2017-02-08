@@ -1,0 +1,17 @@
+#### rango , datos ,remplazo 
+pob<-sample(100:120,15,replace = F)
+pob
+## se convierte en serie de tiempo0  ts qe inicie en el año 2000
+pobts<-ts(pob,frequency = 1,start=(2000))
+# start cuando inicia y end cuando acaba 
+end(pobts)
+plot(pobts)
+infor<-ts(read.csv(("C:\\Users\\Sala-D15\\Desktop\\enoe.csv")),frequency = 4,start = (2005))
+infor
+indi3<-(read.csv("C:\\Users\\Sala-D15\\Desktop\\4tasa.csv"))
+indi3st<-ts(indi3,frequency = 4,start=2005)
+decost<-ts(indi3[,1],start = 2005,frequency=4,end = 2014)
+parcial<-ts(indi3[,2],start = 2005,frequency=4,end = 2014)
+trabajo<-ts(indi3[,3],start = 2005,frequency=4,end = 2014)
+condiciones<-ts(indi3[,4],start = 2005,frequency=4,end = 2014)
+parcial
