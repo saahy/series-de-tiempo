@@ -1,0 +1,9 @@
+
+####### tarea 1 base ENOE 
+temp <- tempfile()
+download.file("http://www.beta.inegi.org.mx/contenidos/proyectos/enchogares/regulares/enoe/microdatos/enoe_15ymas/2016/2016trim3_dbf.zip", temp)
+files = unzip(temp, list=TRUE)$Name
+unzip(temp,files=files[grepl("dbf",files)])
+install.packages("foreign")
+require(foreign)
+sedem2016<- data.frame(read.dbf("sdemt316.dbf"))
