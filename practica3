@@ -1,0 +1,87 @@
+## buscamos INEGI
+## Buscamos la Serie de Tiempo 
+## Ubicar la ruta de la ST en la computadora
+## Importamos en R eñ archivo csv
+## reconocer el archivo como ST
+
+
+## Generar 4 objetos con datos aleatorios y que tengan 60 datos
+## obj 1 de numero de profesionistas 5-8 mill
+## obj 2 crecimiento pob de 0 a 5 
+## obj 3  %  de ocupados rango de 40-60 
+## obj 4 % de desocupados rango de 3-8
+
+
+Prof <- sample(5:8,60, replace = T) # primer argumento es el rango, 2° es el numero de datos
+#3° que si ya dio un valor no de remplazo(F o V)
+Prof
+
+crec <- sample(0:5,60, replace = T)
+crec
+
+ocup <- sample(40:60,60, replace = T)
+ocup
+
+desoc <- sample(3:8,60, replace = T)
+desoc
+
+## 1) una vez que se generen los datos hacer un data frame de los 4 objetos
+
+pceu <- data.frame(Prof,crec,ocup,desoc)
+
+## 2) Mostrar en consola los primeros  12 y los ultimos 12
+
+pceu12<-pceu[1:12,] ## primer entrada son renglones, la segunda a columnas
+pceu[49:60,]
+
+## 3) convertir los objetos en Series de Tiempo
+## comience en 2010 y datos mensuales
+
+Profst <- ts(Prof, frequency = 12,start = 2010) ## 1.- datos, 2.- frecuencia, 3.- inicio
+end (Profst)
+crecst <- ts(crec, frequency = 12,start = 2010)
+ocupst <- ts(ocup, frequency = 12,start = 2010)
+desocst <- ts(desoc, frequency = 12,start = (2010))
+
+
+## 4) Graficar los profesionistas y ocupados en la misma
+plot(Profst)            ## graficar 1 vector
+plot(cbind(Profst, ocupst)) ## Graficar 2 vectores
+
+## 5) graficar pib y desoc en la misma imagen
+plot(cbind(crecst, desocst))
+
+## 6) graficar todas juntas
+plot(cbind(Profst, ocupst,crecst,desocst))
+x11() ## abrir una nueva ventana para ver la grafica... volver a correr la grafica
+
+
+plot.ts(pceu[,c(1,3)]) ##graficar 1-3, salteadas sin utilizar el cbind
+
+
+pceust <- ts.intersect(pceu)
+
+
+pib<-read.csv("C:/Users/SALA-D14/Desktop/PIB.csv")
+
+
+s1<-pib[1:11,]
+s2<-pib[12:21,]
+s3<-pib[22:31,]
+s4<-pib[32:36,]
+s1
+s2
+s3
+s4
+s1st <- ts(s1, frequency = 1,start = 1980)
+s2st <- ts(s2, frequency = 1,start = 1991)
+s3st <- ts(s3, frequency = 1,start = 2001)
+s4st <- ts(s4, frequency = 1,start = 2011)
+plot(cbind(s2st,s3st))
+plot(cbind(s1st,s4st))
+
+
+
+
+
+MI COMPU SE APAGO Y LO HICE CON MI COMPAÑERO =)
