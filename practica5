@@ -1,0 +1,20 @@
+#ejercicio
+##obtener 4 series de tiempo cada quien elige minimo 30 datos
+####las series de tiempo que importen tienen que tener sustento para compararlas 
+sectinf<-read.csv("C:/Users/SALA-D14/Desktop/ejercicio.csv")
+teosin<-sectinf[,1]
+teinla<-sectinf[,2]
+tosi2<-sectinf[,3]
+til2<-sectinf[,4]
+teosinst<-ts(teosin,frequency = 4,start=2005)
+teinlast<-ts(teinla,frequency = 4,start = 2005)
+tosi2st<-ts(tosi2,frequency = 4,start = 2005)
+til2st<-ts(til2,frequency = 4,start = 2005)
+seriemultipletasasejer<-ts.intersect(teosinst,teinlast,tosi2st,til2st)
+plot(seriemultipletasasejer,main="serie de tiempo",sub=" ENOE 13/02/2017",xlab="Años",ylab="numero de personas",col=c("green","red","black","blue"),type="overplotted")
+divserie05.09<-window(seriemultipletasasejer,start=c(2005,1),end=c(2008,4))
+divserie9.12<-window(seriemultipletasasejer,start=c(2009,1),end=c(2012,4))
+divserie13.16<-window(seriemultipletasasejer,start=c(2013,1),end=c(2016,3))
+plot(divserie05.09,main="serie de tiempo 1/3",sub=" ENOE 13/02/2017",xlab="Años",ylab="numero de personas",col=c("green","red","black","blue"),type="overplotted")
+plot(divserie9.12,main="serie de tiempo2/3",sub=" ENOE 13/02/2017",xlab="Años",ylab="numero de personas",col=c("green","red","black","blue"),type="overplotted")
+plot(divserie13.16,main="serie de tiempo 3/3",sub=" ENOE 13/02/2017",xlab="Años",ylab="numero de personas",col=c("green","red","black","blue"),type="overplotted")
