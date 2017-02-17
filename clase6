@@ -1,0 +1,36 @@
+#para descomponer una serie de tiempo grafica mente se utiliza 
+## una funcion que se llama decompose ,por lo que primero es importante
+# reconocer la serie de tiempo y despues aplicarle la funcion graficamente 
+desoc<-sample(3:8 ,44, replace =T)
+tdesoc<-ts(desoc,frequency = 4,start = 2005)
+x11()
+plot(decompose(tdesoc))
+plot(tdesoc)
+les<-read.csv("C:/Users/SALA-D14/Desktop/lees.csv")
+st<-ts(les,frequency = 52,start= 2005)
+plot(st)
+plot(decompose(st))
+ga<-read.csv("C:/Users/SALA-D14/Desktop/gabi.csv")
+
+
+stg<-ts(ga,frequency = 4,start= 2007)
+plot(stg)
+plot(decompose(stg))
+View(stg)
+summary(stg)
+depibst<- decompose(stg)
+names(depibst)
+depibst$trend
+depibst$seasonal
+########practica 
+luly<-read.csv("C:/Users/SALA-D14/Desktop/lu.csv")
+lust<-ts(luly,frequency = 4,start = 2005)
+plot(lust)
+plot(decompose(lust))
+depilu<-decompose(lust)
+names(depilu)
+depilu$seasonal
+depilu$trend
+depilu$random
+
+# la grafica tiene una disminucion muy notable en el  2008 que pudo ser ocacionada por la crisis que hubo en ese año y tubo una recuperacion muy notable  hasta el 2011
