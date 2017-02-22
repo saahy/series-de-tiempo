@@ -1,0 +1,20 @@
+luly2<-read.csv("C:/Users/SALA-D14/Desktop/lu.csv")
+luly2
+lust
+r1<-(luly2[1,1]+luly2[2,1]+luly2[3,1]+luly2[4,1])/4
+r2<-(luly2[2,1]+luly2[3,1]+luly2[4,1]+luly2[5,1])/4
+r2
+i=0
+for(i in 1:44)
+{
+  r1<-luly2[1+i,]+luly2[2+i,]+luly2[i+3,]+luly2[i+4,]
+ 
+ ve<-r1/4
+  i=i+1
+  r1
+  ve
+  m<-data.frame(ve)
+}
+ve
+r1
+m
