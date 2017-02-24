@@ -1,0 +1,15 @@
+luly<-read.csv("C:/Users/SALA-D14/Desktop/lu.csv")
+lust<-ts(luly,frequency = 4,start = 2007)
+lust
+plot(lust)
+plot(decompose(lust))
+depilu<-decompose(lust,type = "multiplicative")
+plot(lust,col="blue",main="tasa de desocupacion trimestral ",ylab="tasas",xlab="años")
+lines(depilu$trend,col="red",ylab="tendencia")
+monthplot(depilu$seasonal,main="IVEC",ylab="ivec trimestral")
+depilu
+
+names(depilu)
+depilu$seasonal
+depilu$trend
+depilu$random
