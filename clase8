@@ -1,0 +1,49 @@
+##descomposicion clasica se utiliza la funcion descompose , otro tipo de descompocicion de la estacionariedad
+#####tendencia y estacionariedad es la descompocicion 
+#por Loesss la cual esta basada en un algoritmo que permite descomponer las series de tiempo en tres elementos
+#estacionariedad ,tendencia y aleatoriedad , una de las ventajas de esta descompocicion es el calculo de la esta
+#cionariedad no v bonstantes en contrastes con el metodo clasico de descompocicion
+
+#descompocicion clasica 
+desocupacion<-read.csv("C:/Users/SALA-D14/Desktop/lu.csv")
+desocupacion
+class(desocupacion)
+des<-ts(desocupacion [1:48,1],frequency = 4,start=2005)
+class(des)
+desco<-decompose(des)
+tend1<-desco$trend
+plot(tend1,col="blue",main="tendencia desocupacion",ylab="tasas",xlab="años")
+lines(tend2,col="red")
+################descomposicion tendencia , estacional por loose
+################se utiliza la funcion stl()
+####entonces para descomponer por Loose utilizamos 
+desco2<-stl(des,s.window="periodic",robust=T)
+names(desco2)
+desco2
+tend2<-desco2$time.series[,2]
+esta2<-desco2$time.series[,1]
+esta2
+####
+ga<-read.csv("C:/Users/SALA-D14/Desktop/gabi.csv")
+ga
+class(ga)
+gav<-ts(ga [1:35,1],frequency = 4,start=2007)
+class(gav)
+gades<-decompose(gav)
+tend4<-gades$trend
+plot(tend4,col="blue",main="PIB",ylab="tasas",xlab="años")
+desco5<-stl(gav,s.window="periodic",robust=T)
+tend6<-desco5$time.series[,2]
+lines(tend6,col="red")
+######descomposicion de tendencia estacional por loose 
+####se utiliza la funcion stl
+install.packages("fpp")
+library(fpp)
+desco2<-stl(des,s.window = "periodic",robust=T)
+names(desco2)
+tend2<-desco2$time.series[,2]
+esta2<-desco2$time.series[,1]
+ajus<-seasadj(desco2)
+inge1<-naive(ajus)
+plot(inge1)
+inge1
