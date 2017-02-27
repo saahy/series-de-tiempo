@@ -1,0 +1,18 @@
+### TAREA 2########
+### modelo multiplicativo
+
+# buscar una serie de tiempo con tendencia a la alza y estacionalidad.
+#### precios historicos del  peso-dolar de 2016-2017 
+dolar<-read.csv(file.choose())
+dolar<-ts(dolar,frequency = 12,start = 2016)
+
+# Descomponer la serie de tiempo por modelo multiplicativo
+dolar1<-decompose(dolar,type = "multiplicative")
+plot(dolar1)
+# Obtener y graficar la tendencia
+dolar1$seasonal
+plot(dolar1$seasonal,main="dolar")
+monthplot(dolar1$seasonal,main="Estacionalidad dolar",ylab = "mensual")
+
+plot(dolar,col="red",main = "peso-dolar",ylab = "precio",xlab = "cierre")
+lines(dolar1$trend,col="pink",ylab="Tendencia")
