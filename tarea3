@@ -1,0 +1,27 @@
+pib<-read.csv("C:/Users/livin/Desktop/pib2.csv")
+install.packages("fpp")
+require(fpp)
+plot(window(elec,start=1980),ylab="GWh",xlab="year",main="australian electricity")
+#esta tendencia y ciclo
+plot(bricksq,ylab="million units",xlab="year",main="australian clay brick")
+#esta y ciclo no mucha 
+plot(hsales,ylab="total sales",xlab="year",main="Sales of new ome-family houses,USA")
+seasonplot(elec,s=12,year.labels = T,main = "valor acciones ICA",ylab = "valor cierre",col = rainbow(20),year.labels.left = T,pch=15)
+seasonplot(bricksq,s=4,year.labels = F,main = "bricksq",ylab = "año",col = rainbow(20),year.labels.left = T,pch=10)
+seasonplot(hsales,s=12,year.labels = F,main = "elec",ylab = "año",col = rainbow(20),year.labels.left = T,pch=10)
+dec<-decompose(bricksq)
+sinesta<-bricksq-dec$seasonal
+sintend<-bricksq-dec$trend
+plot(sinesta)
+plot(sintend)
+#######analizar a que se debe cada una de los elementos encontados 2000-2015
+pib
+l<-pib[40:56,]
+l2<-ts(l,frequency=1,start=2000)
+l2
+plot(l2,ylab="tasa de pib",xlab="year",main="PIB")
+pibb<-decompose(l2)
+sinestapib<-pibb$seasonal
+sintendpib<-pibb$trend
+plot(sinestapib)
+plot(sintendpib)
