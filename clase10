@@ -1,0 +1,13 @@
+luly<-read.csv("C:/Users/SALA-D14/Desktop/lu.csv")
+lust<-ts(luly,frequency = 4,start = 2005)
+lust
+plot(lust)
+plot(decompose(lust))
+depilu<-decompose(lust,type = "multiplicative")
+plot(lust,col="blue",main="tasa de desocupacion trimestral ",ylab="tasas",xlab="años")
+require(fpp)
+eeadj<-seasadj(depilu)
+plot(eeadj)
+sinesta<-lust-depilu$seasonal
+sinesta
+lines(eeadj,col="blue")
