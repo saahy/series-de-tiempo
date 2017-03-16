@@ -1,0 +1,15 @@
+pib<-read.csv("C:/Users/livin/Desktop/pib2.csv")
+pibx<-pib[,1]
+piby<-pib[,2]
+piby
+x<-mean(pibx)
+x
+y<-mean(piby)
+y
+sux<-pibx-x
+sfx<-sum(sux)
+suy<-piby-y
+sfy<-sum(suy)
+cov2<-(sfx*sfy)/(56)
+cov2
+correl<-cov2/(sd(pibx)*sd(piby))
