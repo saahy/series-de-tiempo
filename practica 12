@@ -1,0 +1,49 @@
+pib<-read.csv("C:/Users/SALA-D14/Desktop/pib2.csv")
+pibst<-ts(pib,frequency = 1,start=1960)
+pibst
+acf(pibst)
+### son la aplicacion de pronosticos lineales 
+#como el ingenuo , promedio ,ingenuo estacional y el deriva 
+#el pronostico ingenuo esta basado en la ultima observacion que arroja a serie de tiempo 
+
+###tarea buscar st de mexico  donde con el correlograma determininen si tiene ruido blaco y otra con caminata aleatoria
+
+###########################metodo ingenuo########
+
+naive(pibst,h=4)
+install.packages("forecast")
+require(forecast)
+###########################metodo promedio########
+plot(meanf(pibst,h=1))
+###################metodo ingenuo estacional ###########
+snaive(pibst,h=1)
+
+######### El metodo de la deriva
+# este metodo consiste en que el pronostico puede incrementar o reducirse sobre el tiempo 
+rwf(pibst,h=4 ,drift = TRUE)
+
+desocmod1<-meanf(pibst,h=4)
+desocmod2<-naive(pibst,h=4)
+desocmod3<-snaive(pibst,h=4)
+desocmod4<-rwf(pibst,h=4,drift=T)
+x11()
+plot(desocmod1,main = "forecast")
+lines(desocmod2$mean,col=5)
+lines(desocmod3$mean,col=6)
+lines(desocmod4$mean,col=7)
+legend("topright",lty=1,col=c(5,6,7,8),legend=c("media","ingenu","estacional","deriva"))
+
+x11()
+plot(desocmod1,main = "forecast")
+lines(desocmod2$fitted,col=5)
+lines(desocmod3$fitted,col=6)
+lines(desocmod4$fitted,col=7)
+legend("topright",lty=1,col=c(5,6,7,8),legend=c("media","ingenu","estacional","deriva"))
+names(desocmod2)
+
+plot(desocmod1,main = "forecast")
+lines(desocmod2$residuals,col=5)
+lines(desocmod3$residuals,col=6)
+lines(desocmod4$residuals,col=7)
+legend("topright",lty=1,col=c(5,6,7,8),legend=c("media","ingenu","estacional","deriva"))
+names(desocmod2)
