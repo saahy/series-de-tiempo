@@ -1,0 +1,41 @@
+tarea<-read.csv(file.choose())
+tarea
+pibts<-ts(tarea[,2],frequency = 1,start = 1960, end=2017)
+pibts
+
+
+pib1960.2010<-window(pibts,start=c(1960,1),end=c(2010,1))#### window pra dividir la seie 
+pib2011.2015<- window(pibts,start=c(2011,1),end=c(2015,1))
+
+install.packages("forecast")
+require(forecast)
+
+### modelos de pronostico a 5 AÑOS  de 2010-2015
+
+## METODO INGENUO
+pibingenuo<-naive(pib1960.2010,h=5)
+
+##METODO PROMEDIO
+pibpromedio<-meanf(pib1960.2010,h=5)
+
+##METODO INGENUO ESTACIONAL
+pibestacional<-snaive(pib1960.2010,h=5)
+
+## METODO DE LA DERIVA
+pibderiva<-rwf(pib1960.2010,h=5)
+
+
+x11()
+plot(pibts,main="PIB MEXICO")
+
+plot(pib1960.2010, main="PIB MEXICO 1960-2010")
+
+
+lines(pib2011.2015,col="purple") ## DATOS REALES
+
+### graficando datos pronosticados
+
+lines(pibingenuo$mean,col="orange")
+lines(pibpromedio$mean,col="yellow") ### es el que mas se aproxima a los datos reales
+lines(pibestacional$mean,col="pink")
+lines(pibderiva$mean,col="blue")
