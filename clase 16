@@ -1,0 +1,43 @@
+######la serie no tiene tendencia  ni estacionalidad 
+
+## lo que se va a analizar de los residuales es que cumplan con las propiedades 
+# de residuales  que consisten en 
+#1 residuales no esten relacionados 
+#2 media cero 
+#3 varianza constante 
+#4 normalmente distribuidos 
+### se tiene que obtener los residuales (4 modelos ) para analizarlos 
+x11()
+plot(mod1,ylab = "",xlab = "",main="",type = "l")
+lines(mod1$fitted,col="green")
+lines(mod2$fitted,col="red")
+lines(mod3$fitted,col="blue")
+lines(mod4$fitted,col="pink")
+
+res1<-residuals(mod1)
+res2<-residuals(mod2)
+res3<-residuals(mod3)
+res4<-residuals(mod4)
+plot(res1,ylab = "residuales",xlab = "")
+plot(res2,ylab = "residuales",xlab = "")
+plot(res3,ylab = "residuales",xlab = "")
+plot(res4,ylab = "residuales",xlab = "")
+
+hist(res1,nclass = "FD", main="histograma de residuales ")
+
+hist(res2,nclass = "FD", main="histograma de residuales ")
+hist(res3,nclass = "FD", main="histograma de residuales ")
+hist(res4,nclass = "FD", main="histograma de residuales ")
+
+#pruebas de autocerrelaciones  a los residuales 
+#para analizar se utiliza acf
+# para saber si existe correlacion en los residuales 
+Acf(res1,main="")
+Box.test(res1,lag = 10,type = "Lj")
+
+Acf(res2,main="")
+Box.test(res2,lag = 10,type = "Lj")
+Acf(res3,main="")
+Box.test(res3,lag = 10,type = "Lj")
+Acf(res4,main="")
+Box.test(res4,lag = 10,type = "Lj")
