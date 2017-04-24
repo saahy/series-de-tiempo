@@ -1,0 +1,17 @@
+require(fpp)
+ base<-read.csv(file.choose())
+ ats<-ts(base[,1],frequency = 12, start = 2000)
+### bts<-ts(base[,2],frequency = 12, start = 2000)
+ ats
+ ocha<-window(ats,start=c(2000,1),end=c(2000,7))
+ vea<-window(ats,start=c(2000,7),end=c(2001,3)) 
+ plot(ats)
+ moda<-holt(ocha,alpha = .8,beta=.2,initial = "simple",exponential = T,h=5)
+ moda
+ moda2<-hw(ocha,seasonal="additive")
+ 
+ moda3<-hw(ocha,seasonal="multiplicative")
+ plot(moda,main="accion netflix",xlab="año",ylab="precio")
+ lines(moda$mean,col="red",type="o")
+ lines(moda2$mean,col="blue",type="o")
+ lines(moda3$mean,col="green",type="o")
