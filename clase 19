@@ -1,0 +1,46 @@
+require(forecast)
+dolar<-read.csv(file.choose())
+ica<-read.csv(file.choose())
+pib<-read.csv(file.choose())
+bimbo<-read.csv(file.choose())
+
+
+
+dolarts<-ts(dolar,frequency=254,start=2016)
+icats<- ts(ica,frequency=254,start=2016)
+pibts<-ts(pib,frequency=1,start=2000)
+bimbots<-ts(bimbo,frequency=254,start=2016)
+
+plot(dolarts)
+plot(icats)
+plot (pibts)
+plot(bimbots)
+
+########### ajuste fitted  ajusta datos con el modelo 
+
+meanfdolar<-meanf(dolarts,h=5)
+snaidolar<-snaive(dolarts,h=5)
+rwfdolar<-rwf(dolarts,h=5,drift = TRUE)
+naivdolar<-naive(dolarts,h=5)
+x11()
+plot(dolarts,col="black")
+lines(meanfdolar$fitted,col="pink")
+lines(snaidolar$fitted,col="blue")
+lines(rwfdolar$fitted,col="green")
+lines(naivdolar$fitted,col="brown")
+
+
+htsimpdolar<-holt(dolarts,alpha = .8,beta=.2,initial = "simple",h=5)
+htexpsdolar<-holt(dolarts,alpha = .8,beta=.2,initial = "simple",exponential = T,h=5)
+
+# amortiguado
+aditivodolar<-holt(dolarts,damped=T,h=5)
+multidolar<-holt(dolarts,damped=T,exponential = T,h=5)
+
+hw1dolar<-hw(dolarts,seasonal="additive")
+hw2dolar<-hw(dolarts,seasonal="multiplicative")
+
+lines(aditivodolar$fitted,col="gray")
+lines(multidolar$fitted,col="purple")
+lines(hw1dolar$fitted,col="red")
+lines(hw2dolar$fitted,col="yellow")
