@@ -1,0 +1,6 @@
+ica<-read.csv(file.choose())
+icats<-ts(ica,start=2016,frequency = 252)
+
+x11()
+plot(icats)
+aa<-sample(300:900,252)
