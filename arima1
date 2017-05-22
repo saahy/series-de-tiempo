@@ -1,0 +1,57 @@
+require(foreign)
+require(fpp)
+
+cemex<-read.csv(file.choose())
+cemexts<-ts(cemex[,5],frequency=252,start=2016)
+
+bimbo<-read.csv(file.choose())
+bimbos<-ts(bimbo[,5],frequency=252,start=201)
+
+######  1 revisar si es estacionaria  adf.test y esperamos p value <.05
+adf.test(bimbos)
+#### no  es estacionaria -> usamos diff
+dbimts<-diff(bimbos)
+(adf.test(dbimts))
+######## ya cumple  diff =1###  hay que encontrar valor p y q ( correlograma )
+acf(dbimts)
+##### franjas que pasan, es el numero de q (promedios moviles )  aqui es 2
+###para determinar el valor de p que se relaciona con los modelos autoregresivos 
+pacf(dbimts)
+#### "" tambien es el numero de lineas que sobrepasa
+#p =1 por lo que se propone un modelo arima (1,1,2)
+modbim<-Arima(bimbos,order=c(1,1,2))
+modbim
+##### si se tienen 2 modelos arima  el menor AICC es el mejor 
+
+modbim1<-Arima(bimbos,order=c(2,1,2))
+modbim1
+#### ver si los resuduales tienen ruido blanco
+modres<-residuals(modbim)
+Box.test(modres,lag=12,type="Ljung-Box")
+#### si p value es grande  tiene ruido blanco 
+# escojer modelo
+mod1<-forecast(modbim,h=12)
+plot(forecast(modbim,h=12), include=18)
+
+auto.arima(bimbos)
+
+#############################cemex
+cemexts<-ts(cemex[,5],frequency=252,start=2016)
+adf.test(cemexts)
+
+dcemexts<-diff(cemexts)
+(adf.test(dcemexts))
+###(,1,)
+acf(dcemexts)
+#####(,1,1)
+pacf(dcemexts)
+#####(0,1,1)
+modcem<-Arima(cemexts,order=c(0,1,1))
+modcem
+
+modrescem<-residuals(modcem)
+Box.test(modrescem,lag=12,type="Ljung-Box")
+cemexmod<-forecast(modcem,h=12)
+plot(forecast(modcem,h=12), include=18)
+
+auto.arima(cemexts)
