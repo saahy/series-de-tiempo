@@ -1,0 +1,31 @@
+require(foreign)
+require(fpp)
+
+am<-read.csv(file.choose())
+amts<-ts(am[,5],frequency=252,start=2016)
+amts
+zz<-Arima(amts,order=c(1,0,0))
+zz
+####### yt=c+fi1(yt-1)#### para este caso yt=12.6417+.9888(yt-1)
+##### autoregresivo 2
+zz2<-Arima(amts,order=c(2,0,0))
+zz2
+#####yt =12.6355+1.0625(yt-1)-.0748(yt-2)####### intercept siempre es la consatante y los demas son yt-i
+#### ahora bien si tenemos un modelo de promedios mobiles  MA(q)
+### se puede expresar yt=c+teta(yt-1)...............
+yy<-Arima(amts,order=c(0,0,1))
+yy
+##### yt=12.3081+.9084(et-1)
+###### q=2
+yy2<-Arima(amts,order=c(0,0,2))
+yy2
+#####yt =12.311+1.3687(et-1)+.7103(et-2)#
+yy3<-arima(amts,order=c(2,3,2))
+yy3
+#### yt=.0735(yt-1)-.01494(yt-2)-1.9833(et-1)+.9837(et-2)+ et    ar =y ma =e 
+ixe<-read.csv(file.choose())
+ixets<-ts(ixe[,5],frequency=252,start=2016)
+ixets
+trabajo<-Arima(ixets,order=c(0,3,2))
+trabajo
+ ###### yt=-1.9982(et-1)+(et-2)
